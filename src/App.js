@@ -15,14 +15,35 @@ function Dialog(props) {
     <FancyBorder color="blue">
       <h1 className="Dialog-title">{props.title}</h1>
       <p className="Dialog-message">{props.message}</p>
+      {props.children}
     </FancyBorder>
   );
 }
 
-function WelcomeDialog() {
-  return (
-    <Dialog title="Welcome" message="Thank you for visiting our spacecraft!"/>
-  );
-}
+class SignUpDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+  }
+    handleChange(e) {
+      this.setState({login: e.target.value})
+    }
 
-export default WelcomeDialog;
+    handleSignUp() {
+      alert(`Welcome aboard, ${this.state.login}!`);
+    }
+    render() {
+      return (
+        <Dialog title="Title of this dialog box!" message="Do you want to receive e-mails?">
+          <input value={this.state.login} onChange={this.handleChange} />
+          <button onClick={this.handleSignUp}>Sign me up!</button>
+        </Dialog>
+      )
+    }
+  }
+
+export default SignUpDialog;
